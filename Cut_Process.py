@@ -3,14 +3,14 @@ import os
 from tqdm import tqdm
 
 
-def acc_cut(cat_acc):
+def acc_cut(cat_acc, camera_num):
     goal = 45375
     cut_data = list()
     cat_acc_numpy = cat_acc.to_numpy()  # 가속도 데이터
 
     # 가속도 센서 값 자르기
     for i in tqdm(range(cat_acc_numpy.shape[0])):
-        out_name = f'Cat_Acc_{cat_acc_numpy[i + 1 - goal][1]}~{cat_acc_numpy[i][1]}.csv'
+        out_name = f'{camera_num}_Cat_Acc_{cat_acc_numpy[i + 1 - goal][1]}~{cat_acc_numpy[i][1]}.csv'
         out_dir = './Acc_Result'
         if i <= goal:
             cut_data.append(cat_acc_numpy[i])
@@ -118,7 +118,7 @@ def acc_cut(cat_acc):
                 cut_data.clear()
 
 
-def gyro_cut(cat_acc, cat_gyro):
+def gyro_cut(cat_acc, cat_gyro, camera_num):
     goal = 45375
     cut_data = list()
 
@@ -140,7 +140,7 @@ def gyro_cut(cat_acc, cat_gyro):
     # 그래서 같은 시간일 때만 자른다.
 
     for i in tqdm(range(cat_gyro_numpy.shape[0])):
-        out_name = f'Cat_Gyro_{cat_gyro_numpy[i + 1 - goal][1]}~{cat_gyro_numpy[i][1]}.csv'
+        out_name = f'{camera_num}_Cat_Gyro_{cat_gyro_numpy[i + 1 - goal][1]}~{cat_gyro_numpy[i][1]}.csv'
         out_dir = './Gyro_Result'
         if i <= goal:
             cut_data.append(cat_gyro_numpy[i])
